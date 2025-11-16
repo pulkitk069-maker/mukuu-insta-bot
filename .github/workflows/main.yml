@@ -1,0 +1,25 @@
+name: Mukuu Insta Bot
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+
+      - name: Install dependencies
+        run: pip install instagrapi openai
+
+      - name: Run bot
+        env:
+          INSTA_SESSION_ID: ${{ secrets.INSTA_SESSION_ID }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python insta_mukuu_bot.py
